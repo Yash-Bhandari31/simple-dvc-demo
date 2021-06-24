@@ -7,3 +7,5 @@ Get dataset - https://www.kaggle.com/uciml/red-wine-quality-cortez-et-al-2009
 git init
 dvc init
 dvc add data_given/winequality.csv
+git add .
+git commit -m 'initial commit'
