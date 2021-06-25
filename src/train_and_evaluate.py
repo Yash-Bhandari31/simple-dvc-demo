@@ -15,6 +15,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import ElasticNet
 from get_data import read_params
 
+def eval_metices(actual, pred):
+
+    rmse = np.sqrt(mean_squared_error(actual, pred))
+    mae = mean_absolute_error(actual, pred)
+    r2 = r2_score(actual, pred)
+    return rmse, mae, r2
+
 def train_and_evaluate(config_path):
     config = read_params(config_path)
     test_data_path = config["split_data"]["test_path"]
@@ -43,28 +50,40 @@ def train_and_evaluate(config_path):
     lr.fit(train_x, train_y)
     predicted_qualities = lr.predict(test_x)
 
-def eval_metices(actual, pred):
-    rmse = np.
     (rmse, mae, r2) = eval_metices(test_y, predicted_qualities)
+    print("ElasticNet model (alpha=%f, l1_ratio=%f: "%(alpha, l1_ratio))
+    print('RMSE: %s'%rmse)
+    print('MAE: %s'%mae)
+    print('R2 score: %s'%r2)
+
+####################################################################
+#    Dump the hyper parameter & evaluation values
+    scores_file = config["reports"]["scores"]
+    params_file = config["reports"]["params"]
+
+    with open(scores_file, "w") as f:
+        scores = {"rmse":rmse,
+                  "mae":mae,
+                  "r2":r2
+                }
+        json.dump(scores, f, indent = 4)
+
+    with open(params_file, "w") as f:
+        params = {
+                "alpha":alpha,
+                "l1_ratio":l1_ratio
+                 }
+        json.dump(params, f, indent = 4)
 
 
+####################################################################
+    os.makedirs(model_dir, exist_ok = True)
+    model_path = os.path.join(model_dir, "model.joblib")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    joblib.dump(lr, model_path)
 
 if __name__ == "__main__":
-        args = argparse.ArgumentParser()
+    args = argparse.ArgumentParser()
     args.add_argument("--config", default = "params.yaml")
     parsed_args = args.parse_args()
-    split_and_saved_data(config_path=parsed_args.config)
+    train_and_evaluate(config_path=parsed_args.config)
