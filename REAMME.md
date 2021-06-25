@@ -40,7 +40,6 @@ git add .
 ```
 ```bash
 
-git commit -m 'initial commit'
 
 tox command - 
 tox
