@@ -41,3 +41,24 @@ git add .
 ```bash
 
 git commit -m 'initial commit'
+
+tox command - 
+```bash
+tox
+```
+for rebuilding - 
+```bash
+tox -r
+```
+pytest command
+pytest -v
+```
+
+setup commands - 
+```bash
+pip install -e .
+
+build your own package commands - 
+````bash
+python setup.py install sdist bdist_wheel
+```
