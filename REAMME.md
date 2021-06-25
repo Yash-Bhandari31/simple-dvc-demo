@@ -43,7 +43,6 @@ git add .
 git commit -m 'initial commit'
 
 tox command - 
-```bash
 tox
 ```
 for rebuilding - 
@@ -62,4 +61,3 @@ pip install -e .
 build your own package commands - 
 ````bash
 python setup.py install sdist bdist_wheel
-```
