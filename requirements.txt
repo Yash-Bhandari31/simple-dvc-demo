@@ -7,3 +7,4 @@ dvc[gdrive]
 sklearn
 pytest
 tox
+flake8  # package for python coding standards
