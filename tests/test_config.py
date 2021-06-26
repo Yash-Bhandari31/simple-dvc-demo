@@ -18,9 +18,10 @@ def test_generic():
 def test_something():
     a = 2
     b = 2
+    c = 2
     assert True
 
-    
+
 # from prediction_service.prediction import form_response, api_response
 # import prediction_service
 
