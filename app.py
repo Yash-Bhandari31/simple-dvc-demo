@@ -1,8 +1,11 @@
 from flask import Flask, render_template, request, jsonify
 import os
+from flask.wrappers import Response
+from numpy.core.fromnumeric import reshape
 import yaml
 import joblib
 import numpy as np
+from prediction_service import prediction
 
 params_path = "params.yaml"
 webapp_root = "webapp"
@@ -35,9 +38,18 @@ def api_prediction():
     except Exception as e:
         print(e)
         error = {"error":"Something went wrong! please try again"}
-        return render_template("404.html", error=error)
+        return error
 
-
+def api_response(request):
+    try:
+        data = np.array([list(request.json.values())])
+        response = predict(data)
+        response = {"response":response}
+        return response
+    except Exception as e:
+        print(e)
+        error = {"error":"Something went wrong!! Try again"}
+        return error
 
 @app.route("/", methods = ['GET','POST'])
 def index():
@@ -61,7 +73,5 @@ def index():
     else:
         return render_template("index.html")
 
-
-
 if __name__=="__main__":
-    app.run(host="0.0.0.0", port=5000,debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
