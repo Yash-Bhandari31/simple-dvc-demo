@@ -10,3 +10,4 @@ tox
 flake8  # package for python coding standards
 flask
 gunicorn
+mlflow

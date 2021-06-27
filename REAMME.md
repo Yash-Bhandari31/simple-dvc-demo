@@ -60,3 +60,16 @@ pip install -e .
 build your own package commands - 
 ````bash
 python setup.py install sdist bdist_wheel
+
+create artifacts directory in root - 
+````bash
+mkdir artifacts
+````
+
+Command to run locally (copy and run command as it is) - mlflow server
+````bash
+mlflow server
+--backend-store-uri sqlite:///mlflow.db
+--default-artifact-root ./artifacts
+--host 0.0.0.0 -p 1234
+````
